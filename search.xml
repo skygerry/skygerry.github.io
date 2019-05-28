@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[DesignPattern(第一周)]]></title>
+    <url>%2F2019%2F05%2F28%2FDesignPattern1%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>每周设计模式</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode14(最长公共前缀)]]></title>
     <url>%2F2019%2F05%2F28%2FLeetCode14%2F</url>
     <content type="text"><![CDATA[题目：编写一个函数来查找字符串数组中的最长公共前缀。 如果不存在公共前缀，返回空字符串 &quot;&quot;。 示例 1: 输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;] 输出: &quot;fl&quot; 示例 2: 输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;] 输出: &quot;&quot; 解释: 输入不存在公共前缀。 说明: 所有输入只包含小写字母 a-z 。 解题思路从前往后枚举字符串的每一列，先比较每个字符串相同列上的字符（即不同字符串相同下标的字符）然后再进行对下一列的比较。 代码实现1234567891011121314151617181920212223242526272829303132333435363738class SecondSolution &#123; public String longestCommonPrefix(String[] strs) &#123; if (strs == null || strs.length == 0) return ""; for (int i = 0; i &lt; strs[0].length(); i++) &#123; char s = strs[0].charAt(i); for (int j = 1; j &lt; strs.length; j++) &#123; if (i == strs[j].length() || strs[j].charAt(i) != s) &#123; return strs[0].substring(0, i); &#125; &#125; &#125; return strs[0]; &#125;&#125;public class ByteDanceSecond &#123; public static void main(String[] args) &#123; System.out.println("请输入数组大小："); Scanner scanner1 = new Scanner(System.in); int num; num = scanner1.nextInt(); System.out.println("请输入序列："); Scanner scanner2 = new Scanner(System.in); String[] s = new String[num]; for (int i = 0; i &lt; num; i++) &#123; s[i] = scanner2.next(); &#125; String ret = new SecondSolution().longestCommonPrefix(s); String out = (ret); System.out.print(out); &#125;&#125;]]></content>
