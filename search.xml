@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[DesignPattern(第一周)]]></title>
+    <title><![CDATA[LeetCode567(字符串的排列)]]></title>
+    <url>%2F2019%2F05%2F29%2FLeetCode567%2F</url>
+    <content type="text"><![CDATA[题目：给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的排列。 换句话说，第一个字符串的排列之一是第二个字符串的子串。 示例1: 输入: s1 = &quot;ab&quot; s2 = &quot;eidbaooo&quot; 输出: True 解释: s2 包含 s1 的排列之一 (&quot;ba&quot;). 示例2: 输入: s1= &quot;ab&quot; s2 = &quot;eidboaoo&quot; 输出: False 注意： 输入的字符串只包含小写字母 两个字符串的长度都在 [1, 10,000] 之间 解题思路 s1的长度应该小于等于s2 首先我们知道，小写字母一共26个，那么，创建2个数组，数组长度为26，数组的0-25个位置代表a-z每个字母在字符串中出现的次数 先统计字符串s1中每个字母出现的次数 固定一个s1长度的滑动窗口，从s2字符串头开始，统计滑动窗口中字母出现的次数，如果和s1的数组一样，则包含s1的排列，如果不一样，则窗口往后滑动一位，继续统计字母出现次数，一直到和s1的数组一样，或者是滑动到结束。 代码实现12345678910111213141516171819202122232425262728293031323334353637383940414243class ThirdSolution &#123; public boolean checkInclusion(String s1, String s2) &#123; if (s1 == null || s2 == null || s1.length() &gt; s2.length()) &#123; return false; &#125; //s1每个字母出现的次数 int countA[] = new int[26]; //s2每个字母出现的次数 int countB[] = new int[26]; for (int i = 0; i &lt; s1.length(); i++) &#123; countA[s1.charAt(i) - 'a']++; countB[s2.charAt(i) - 'a']++; &#125; for (int i = s1.length(); i &lt; s2.length(); i++) &#123; if (Arrays.equals(countA, countB)) &#123; return true; &#125; //去掉滑块的首个字母的计数 countB[s2.charAt(i - s1.length()) - 'a']--; //添加最新的字母的计数到滑块中 countB[s2.charAt(i) - 'a']++; &#125; return Arrays.equals(countA, countB); &#125;&#125;public class ByteDanceThird &#123; public static void main(String[] args) &#123; System.out.println("请输入第一个字符串："); Scanner scanner1 = new Scanner(System.in); String a = scanner1.next(); System.out.println("请输入第二个字符串："); Scanner scanner2 = new Scanner(System.in); String b = scanner2.next(); boolean x = new ThirdSolution().checkInclusion(a, b); System.out.println(x); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode每日算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[DesignPattern(第一周:面向对象的六大原则)]]></title>
     <url>%2F2019%2F05%2F28%2FDesignPattern1%2F</url>
     <content type="text"></content>
       <categories>
