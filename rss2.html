@@ -8,8 +8,39 @@
     <atom:link href="/rss2.html" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 01 Jul 2019 08:48:48 GMT</pubDate>
+    <pubDate>Thu, 04 Jul 2019 10:37:08 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>LeetCode547(朋友圈)</title>
+      <link>http://yoursite.com/2019/07/02/LeetCode547/</link>
+      <guid>http://yoursite.com/2019/07/02/LeetCode547/</guid>
+      <pubDate>Tue, 02 Jul 2019 05:24:33 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;h5 id=&quot;题目：&quot;&gt;&lt;a href=&quot;#题目：&quot; class=&quot;headerlink&quot; title=&quot;题目：&quot;&gt;&lt;/a&gt;题目：&lt;/h5&gt;&lt;p&gt;班上有N名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知A是B的朋友，B是C的朋友，那么我们可以认为A也是C的
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<h5 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h5><p>班上有N名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知A是B的朋友，B是C的朋友，那么我们可以认为A也是C的朋友。所谓的朋友圈，是指所有朋友的集合。</p><p>给定一个N * N的矩阵M，表示班级中学生之间的朋友关系。如果M[i][j] = 1，表示已知第 i 个和 j 个学生互为朋友关系，否则为不知道。你必须输出所有学生中的已知的朋友圈总数。</p><p>示例 1:<br>输入:<br>[[1,1,0],<br>[1,1,0],<br>[0,0,1]]<br>输出: 2<br>说明：已知学生0和学生1互为朋友，他们在一个朋友圈。<br>第2个学生自己在一个朋友圈。所以返回2。</p><p>示例 2:<br>输入:<br>[[1,1,0],<br>[1,1,1],<br>[0,1,1]]<br>输出: 1<br>说明：已知学生0和学生1互为朋友，学生1和学生2互为朋友，所以学生0和学生2也是朋友，所以他们三个在一个朋友圈，返回1。<br>注意：</p><p>N 在[1,200]的范围内。<br>对于所有学生，有M[i][i] = 1。<br>如果有M[i][j] = 1，则有M[j][i] = 1。</p><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><ol><li>采用深度搜索的方式，一层一层的去查找相邻的学生</li></ol><h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findCircleNum</span><span class="params">(<span class="keyword">int</span>[][] M)</span> </span>&#123;<span class="comment">//使用深度优先搜索，类似岛屿个数的题目</span></span><br><span class="line"><span class="keyword">int</span> length = M.length;<span class="comment">//二维数组长度，即所有人的个数</span></span><br><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;<span class="comment">//统计朋友圈个数</span></span><br><span class="line"><span class="keyword">boolean</span>[] flag = <span class="keyword">new</span> <span class="keyword">boolean</span>[length];<span class="comment">//访问标志</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; length;i++)&#123;<span class="comment">//对于每个人</span></span><br><span class="line"><span class="keyword">if</span>(flag[i] == <span class="keyword">false</span>)&#123;<span class="comment">//如果未被访问</span></span><br><span class="line">DFS(i,M,flag);<span class="comment">//深度优先搜索，访问</span></span><br><span class="line">count++;<span class="comment">//朋友圈个数+1</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//深度优先搜索</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span>[][] M,<span class="keyword">boolean</span>[] flag)</span></span>&#123;</span><br><span class="line">flag[i] = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; M[i].length;j++)&#123;</span><br><span class="line"><span class="keyword">if</span>(flag[j] == <span class="keyword">false</span> &amp;&amp; M[i][j] == <span class="number">1</span>)&#123;</span><br><span class="line">DFS(j,M,flag);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      <comments>http://yoursite.com/2019/07/02/LeetCode547/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>ComputerNetWorking1(计算机网络和因特网)</title>
+      <link>http://yoursite.com/2019/07/01/ComputerNetWorking1/</link>
+      <guid>http://yoursite.com/2019/07/01/ComputerNetWorking1/</guid>
+      <pubDate>Mon, 01 Jul 2019 09:41:45 GMT</pubDate>
+      <description>
+      
+      </description>
+      
+      <comments>http://yoursite.com/2019/07/01/ComputerNetWorking1/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>LeetCode60(第K个排列)</title>
@@ -69,51 +100,6 @@
       <content:encoded><![CDATA[<h5 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h5><p>在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。</p><p>示例 1:<br>输入: [3,2,1,5,6,4] 和 k = 2<br>输出: 5</p><p>示例 2:<br>输入: [3,2,3,1,2,4,5,5,6] 和 k = 4<br>输出: 4<br>说明:</p><p>你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。</p><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><ol><li>对整个数组进行从大到小的排序，然后取第K大的值</li><li>使用PriorityQueue来进行操作。PriorityQueue即优先队列。优先队列的作用是能保证每次取出的元素都是队列中权值最小的（Java 的优先队列每次取最小元素，C++ 的优先队列每次取最大元素）<a href="https://get233.com/archives/Java-Collections-PriorityQueue.html#menu_index_6" target="_blank" rel="noopener">PriorityQueue相关内容</a></li></ol><h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ElevenSolution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">PriorityQueue&lt;Integer&gt; priorityQueue = <span class="keyword">new</span> PriorityQueue&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line"><span class="keyword">if</span> (priorityQueue.size() &lt; k) &#123;</span><br><span class="line">priorityQueue.add(nums[i]);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="keyword">if</span> (priorityQueue.peek() &lt; nums[i]) &#123;</span><br><span class="line">priorityQueue.remove();</span><br><span class="line">priorityQueue.add(nums[i]);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> priorityQueue.peek();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content:encoded>
       
       <comments>http://yoursite.com/2019/06/25/LeetCode215/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>LeetCode674(最长连续递增序列)</title>
-      <link>http://yoursite.com/2019/06/06/LeetCode674/</link>
-      <guid>http://yoursite.com/2019/06/06/LeetCode674/</guid>
-      <pubDate>Thu, 06 Jun 2019 06:50:30 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;h5 id=&quot;题目：&quot;&gt;&lt;a href=&quot;#题目：&quot; class=&quot;headerlink&quot; title=&quot;题目：&quot;&gt;&lt;/a&gt;题目：&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;给定一个未经排序的整数数组，找到最长且连续的的递增序列。
-
-示例 1:
-输入: [1,3,5,4,7]
-输出: 3
-
-        
-      
-      </description>
-      
-      <content:encoded><![CDATA[<h5 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h5><pre><code>给定一个未经排序的整数数组，找到最长且连续的的递增序列。示例 1:输入: [1,3,5,4,7]输出: 3解释: 最长连续递增序列是 [1,3,5], 长度为3。尽管 [1,3,5,7] 也是升序的子序列, 但它不是连续的，因为5和7在原数组里被4隔开。 示例 2:输入: [2,2,2,2,2]输出: 1解释: 最长连续递增序列是 [2], 长度为1。注意：数组长度不会超过10000。</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><p>设置一个length 和 count，默认都为1<br>for循环，如果后一个值比前一个值大，则count值加1，如果小，则count重置为1。并和length相比，如果比length大，则将length的值替换为count的值，如果小，则length不变。最后输出length。</p><h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TenthSolution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLengthOfLCIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.length &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums.length;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> lenth = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i + <span class="number">1</span>] &gt; nums[i]) &#123;</span><br><span class="line">                count++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                count = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (count &gt; lenth) &#123;</span><br><span class="line">                lenth = count;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lenth;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2019/06/06/LeetCode674/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>LeetCode33(搜索旋转排序数组)</title>
-      <link>http://yoursite.com/2019/06/05/LeetCode33/</link>
-      <guid>http://yoursite.com/2019/06/05/LeetCode33/</guid>
-      <pubDate>Wed, 05 Jun 2019 09:02:41 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;h5 id=&quot;题目：&quot;&gt;&lt;a href=&quot;#题目：&quot; class=&quot;headerlink&quot; title=&quot;题目：&quot;&gt;&lt;/a&gt;题目：&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;假设按照升序排序的数组在预先未知的某个点上进行了旋转。
-
-( 例如，数组 [0,1,2,4,5,6,7] 可能变为 
-        
-      
-      </description>
-      
-      <content:encoded><![CDATA[<h5 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h5><pre><code>假设按照升序排序的数组在预先未知的某个点上进行了旋转。( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。你可以假设数组中不存在重复的元素。你的算法时间复杂度必须是 O(log n) 级别。示例 1:输入: nums = [4,5,6,7,0,1,2], target = 0输出: 4示例 2:输入: nums = [4,5,6,7,0,1,2], target = 3输出: -1</code></pre><h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><p>因为时间复杂度是O(log n)，所以采用二分查找来做。</p><h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NinethSolution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums==<span class="keyword">null</span>||nums.length&lt;<span class="number">1</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] == target) <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="comment">//如果中间值比最左边的值大</span></span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt;= nums[left]) &#123;</span><br><span class="line">                <span class="comment">//如果需要找的值比中间值小，并且比最左边的值大</span></span><br><span class="line">                <span class="keyword">if</span> (target &lt; nums[mid] &amp;&amp; target &gt;= nums[left]) &#123;</span><br><span class="line">                    <span class="comment">//right变为中间值的位置-1</span></span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//left变为中间值的位置+1</span></span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//如果中间值比最右边的值小</span></span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt;= nums[right]) &#123;</span><br><span class="line">                <span class="comment">//如果需要找的值比中间值大，并且比最右边的值小</span></span><br><span class="line">                <span class="keyword">if</span> (target &gt; nums[mid] &amp;&amp; target &lt;= nums[right]) &#123;</span><br><span class="line">                    <span class="comment">//left变为中间值的位置+1</span></span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//right变为中间值的位置-1</span></span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content:encoded>
-      
-      <comments>http://yoursite.com/2019/06/05/LeetCode33/#disqus_thread</comments>
     </item>
     
   </channel>
